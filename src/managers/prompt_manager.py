@@ -11,9 +11,25 @@ class PromptManager:
 
     def create_prompt(self, data: Dict) -> int:
         """새 프롬프트 생성"""
+        # 데이터베이스 테이블 컬럼에 맞는 데이터만 필터링
+        valid_columns = [
+            'title', 'description', 'model', 'version', 'category',
+            'tags', 'query', 'prompt_content', 'chatbot_response',
+            'expected_result', 'is_best', 'changes', 'improvements',
+            'pros', 'cons', 'stats', 'created_by', 'department', 
+            'user_role'
+        ]
+        
+        # 유효한 컬럼만 포함하도록 데이터 필터링
+        filtered_data = {k: v for k, v in data.items() if k in valid_columns}
+        
         # 텍스트 분석 추가
-        data['stats'] = str(self.text_analyzer.count_stats(data['prompt_content']))
-        return self.database.save_prompt(data)
+        if 'prompt_content' in filtered_data:
+            filtered_data['stats'] = str(self.text_analyzer.count_stats(
+                filtered_data['prompt_content']
+            ))
+        
+        return self.database.save_prompt(filtered_data)
 
     def update_prompt(self, prompt_id: int, data: Dict) -> bool:
         """프롬프트 업데이트"""
