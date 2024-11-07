@@ -52,8 +52,10 @@ class PromptManager:
                 )
     
     def _save_prompt_data(self, model, version, category, tags, query, prompt_content,
-                         chatbot_response, is_best, changes, improvements, pros, cons,
-                         auto_increment):
+                     chatbot_response, is_best, changes, improvements, pros, cons,
+                     auto_increment):
+        
+        current_user = st.seeion_state.current_user
         data = {
             "model": model,
             "version": version,
@@ -67,7 +69,10 @@ class PromptManager:
             "improvements": improvements,
             "pros": pros,
             "cons": cons,
-            "stats": str(self.text_analyzer.count_stats(prompt_content))
+            "stats": str(self.text_analyzer.count_stats(prompt_content)),
+            "created_by": current_user['username'],
+            "department": current_user['department'],
+            "user_role": current_user['role']
         }
         
         self.database.save_prompt(data)
