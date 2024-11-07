@@ -9,6 +9,7 @@ from src.views.history_view import HistoryView
 from src.views.comparison_view import ComparisonView
 from src.views.analytics_view import AnalyticsView
 from src.utils.config import Config
+from src.views.consistency_test_view import ConsistencyTestView
 
 def initialize_session_state():
     """세션 상태 초기화"""
@@ -90,7 +91,8 @@ def initialize_views(managers):
         'prompt_view': PromptView(managers['prompt_manager']),
         'history_view': HistoryView(managers['history_manager']),
         'comparison_view': ComparisonView(managers['test_manager']),
-        'analytics_view': AnalyticsView(managers['analytics_manager'])
+        'analytics_view': AnalyticsView(managers['analytics_manager']),
+        'consistency_test_view': ConsistencyTestView(managers['test_manager'])  
     }
 
 def main():
@@ -121,7 +123,7 @@ def main():
             
         elif selected_menu == "일관성 테스트":
             st.header("프롬프트 일관성 테스트")
-            managers['test_manager'].run_consistency_test()
+            views['consistency_test_view'].render_test_form()
             
         elif selected_menu == "분석 대시보드":
             views['analytics_view'].render_analytics()
