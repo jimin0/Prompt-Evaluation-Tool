@@ -21,11 +21,11 @@ class PromptManager:
             col1, col2 = st.columns(2)
             
             with col1:
-                model = st.selectbox("모델 선택", ["클로드", "GPT-4", "기타"])
+                model = st.selectbox("모델 선택", ["클로드", "GPT-3.5", "기타"])
                 version = st.text_input("버전 번호", value=st.session_state.current_version)
                 
             with col2:
-                category = st.selectbox("카테고리", ["일반", "분석", "코드생성", "기타"])
+                category = st.selectbox("카테고리", ["법률", "사내규정", "금융", "기타"])
                 tags = st.text_input("태그 (쉼표로 구분)")
                 
             query = st.text_area("쿼리 입력")
