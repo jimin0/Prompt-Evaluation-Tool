@@ -18,6 +18,9 @@ class PromptManager:
         st.header("새 프롬프트 작성")
         
         with st.form("prompt_form"):
+
+            # 제목
+            title = st.text_input("프롬프트 제목", placeholder="프롬프트의 제목을 입력하세요.")
             col1, col2 = st.columns(2)
             
             with col1:
@@ -27,10 +30,19 @@ class PromptManager:
             with col2:
                 category = st.selectbox("카테고리", ["법률", "사내규정", "금융", "기타"])
                 tags = st.text_input("태그 (쉼표로 구분)")
-                
+
+            description= st.text_area(
+                "프롬프트 설명", placeholder="프롬프트의 목적과 기대효과", height=100
+            )     
             query = st.text_area("쿼리 입력")
             prompt_content = st.text_area("프롬프트 내용", height=200)
             chatbot_response = st.text_area("챗봇 답변", height=200)
+
+            expected_result = st.text_area(
+            "기대결과",
+            placeholder="이 프롬프트를 통해 얻고자 하는 결과를 구체적으로 설명해주세요",
+            height=150
+            )
             
             col3, col4 = st.columns(2)
             with col3:
@@ -46,17 +58,19 @@ class PromptManager:
             
             if submitted:
                 self._save_prompt_data(
-                    model, version, category, tags, query, prompt_content,
-                    chatbot_response, is_best, changes, improvements, pros, cons,
+                    title, description, model, version, category, tags, query, prompt_content,
+                    chatbot_response, expected_result, is_best, changes, improvements, pros, cons,
                     auto_increment
                 )
     
-    def _save_prompt_data(self, model, version, category, tags, query, prompt_content,
-                     chatbot_response, is_best, changes, improvements, pros, cons,
+    def _save_prompt_data(self, title, description, model, version, category, tags, query, prompt_content,
+                     chatbot_response, expected_result, is_best, changes, improvements, pros, cons,
                      auto_increment):
         
-        current_user = st.seeion_state.current_user
+        current_user = st.session_state.current_user
         data = {
+            "title": title,
+            "description": description,
             "model": model,
             "version": version,
             "category": category,
@@ -64,6 +78,7 @@ class PromptManager:
             "query": query,
             "prompt_content": prompt_content,
             "chatbot_response": chatbot_response,
+            "expected_result": expected_result,
             "is_best": is_best,
             "changes": changes,
             "improvements": improvements,
