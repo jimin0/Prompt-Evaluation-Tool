@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 from typing import Dict, Optional
-from ..managers.history_manager import HistoryManager
+from src.managers.history_manager import HistoryManager
 
 class HistoryView:
     """프롬프트 히스토리 조회 화면"""

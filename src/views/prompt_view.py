@@ -1,7 +1,7 @@
 # src/views/prompt_view.py
 import streamlit as st
 from typing import Dict, Optional
-from ..managers.prompt_manager import PromptManager
+from src.managers.prompt_manager import PromptManager
 
 class PromptView:
     """프롬프트 생성 및 편집 화면"""

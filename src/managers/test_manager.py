@@ -1,5 +1,5 @@
 from typing import List, Dict, Optional
-from ..utils.text_analyzer import TextAnalyzer
+from src.utils.text_analyzer import TextAnalyzer
 
 class TestManager:
     """프롬프트 테스트를 담당하는 클래스"""

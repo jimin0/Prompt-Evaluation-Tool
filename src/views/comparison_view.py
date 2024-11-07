@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 from typing import Dict
-from ..managers.test_manager import TestManager
+from src.managers.test_manager import TestManager
 
 class ComparisonView:
     """프롬프트 버전 비교 화면"""

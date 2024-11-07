@@ -1,6 +1,6 @@
 from typing import Dict, Optional
-from ..database.database import PromptDatabase
-from ..utils.text_analyzer import TextAnalyzer
+from src.database.database import PromptDatabase
+from src.utils.text_analyzer import TextAnalyzer
 
 class PromptManager:
     """프롬프트 생성 및 관리를 담당하는 클래스"""
